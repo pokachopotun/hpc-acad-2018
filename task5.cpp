@@ -7,14 +7,14 @@
 using namespace std;
 
 
-#define N 10
 
 int main(int argc, char * argv[]){
 	MPI_Init(&argc, &argv);
-	const int mSize = N;
+	const int mSize = atoi(argv[1]);
 	int rank, size;
 	MPI_Comm_size(MPI_COMM_WORLD, &size);
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+	int nodes = size;
 	if(size >= mSize)
 		size = mSize;
 	int step = mSize / size + int(mSize % size != 0);
@@ -59,7 +59,7 @@ int main(int argc, char * argv[]){
 		}
 	} */
 	if(rank == 0){
-		printf("Matrix size %dx%d Nodes %d Time %lf\n", mSize, mSize, size, time);
+		printf("Matrix size %dx%d Nodes %d Used %d Time %lf\n", mSize, mSize, nodes, size, time);
 	}
 	}
 	MPI_Finalize();
