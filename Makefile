@@ -8,3 +8,6 @@ task2:
 
 tmp:
 	g++ tmp.cpp -o tmp -fopenmp -lpthread
+
+task5:
+	mpic++ task5.cpp -o task5 -fopenmp -lpthread
