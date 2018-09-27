@@ -20,7 +20,7 @@ int main(int argc, char * argv[]){
 	int step = mSize / size + int(mSize % size != 0);
 	int s = step * rank;
 	int f = (rank + 1) * step;
-	if(f > mSize)
+	if(f > mSize)`
 		f = mSize;
 	int lineCnt = f - s;
 	if(lineCnt > 0)

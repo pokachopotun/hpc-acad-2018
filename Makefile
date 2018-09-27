@@ -11,3 +11,7 @@ tmp:
 
 task5:
 	mpic++ task5.cpp -o task5 -fopenmp -lpthread
+
+
+last:
+	mpic++ last.cpp -o last -fopenmp -lpthread
