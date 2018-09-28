@@ -65,6 +65,8 @@ int main(int argc, char * argv[]){
 
 		double tick = MPI_Wtime();	
 		for(int m =0 ; m < used; m++){
+			if(m == rank)
+				continue;
 			MPI_Isend(b, localSize, MPI_DOUBLE, m, 0, MPI_COMM_WORLD, &r[m]);
 		}
 
@@ -76,7 +78,12 @@ int main(int argc, char * argv[]){
 			int colCnt = fcol - scol;
 			int antSize = colCnt * mSize;
 			// printf("AntSize %d\n", antSize);
-			MPI_Recv(buf, antSize, MPI_DOUBLE, m, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+			if(m != rank)
+				MPI_Recv(buf, antSize, MPI_DOUBLE, m, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+			double * cb = buf;
+			if(m == rank){
+				cb = b;
+			}
 			#pragma omp parallel for
 			for(int j = 0; j < colCnt; j++){
 				for(int i = 0; i < lineCnt; i++){
@@ -90,13 +97,13 @@ int main(int argc, char * argv[]){
 			}
 		}
 
-		for(int i = 0; i < lineCnt; i++){
-			for(int j = 0; j < mSize; j++){
-				int pos = i * mSize + j;
-				printf("%lf ", c[pos]);
-			}
-			printf("\n");
-		}
+		// for(int i = 0; i < lineCnt; i++){
+		// 	for(int j = 0; j < mSize; j++){
+		// 		int pos = i * mSize + j;
+		// 		printf("%lf ", c[pos]);
+		// 	}
+		// 	printf("\n");
+		// }
 
 
 		double tack = MPI_Wtime();
