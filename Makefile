@@ -12,6 +12,12 @@ tmp:
 task5:
 	mpic++ task5.cpp -o task5 -fopenmp -lpthread
 
+task8:
+	mpic++ task8.cpp -o task8 -fopenmp -lpthread
+
+task9:
+	mpic++ task9.cpp -o task9 -fopenmp -lpthread
+
 reduce:
 	mpic++ reduce.cpp -o reduce -fopenmp -lpthread
 
